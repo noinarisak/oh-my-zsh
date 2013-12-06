@@ -1,0 +1,118 @@
+ZSH=$HOME/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="ys"
+
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="st ~/.zshrc"
+alias ohmyzsh="st ~/.oh-my-zsh"
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable bi-weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment to change how often before auto-updates occur? (in days)
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want to disable command autocorrection
+# DISABLE_CORRECTION="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment following line if you want to disable marking untracked files under
+# VCS as dirty. This makes repository status check for large repositories much,
+# much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(osx macports sublime autojump mvn virgo vagrant git)
+
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+alias ack="ack-5.12"
+alias q!="exit"
+
+alias upzsh="source ~/.zshrc"
+
+# CME Group
+# Don't share command history between terminals
+setopt append_history no_inc_append_history no_share_history
+
+# ORACLE SQLPLUS
+export ORACLE_HOME=/xdata/_app/sqlplus_OSX_Lion_x86
+export SQLPLUS=$ORACLE_HOME/bin
+#export DYLD_LIBRARY_PATH=$ORACLE_HOME/lib:$DYLD_LIBRARY_PATH
+export TNS_ADMIN=$ORACLE_HOME/network/admin
+#export ORACLE_HOME=${HOME} 
+
+export VIZZ_VERSION="0.1.0-20130913.190122-15"
+export LEO_VERSION="4.2.6"
+export VIRGO_VERSION="3.6.2"
+export GLOBEX_VERSION="2.8.1"
+
+# STAR
+#export SERVER_HOME=/xdata/_prj/vizz-dist-$VIZZ_VERSION/virgo_latest
+export SERVER_HOME=/xdata/_prj/globex-dist-$GLOBEX_VERSION/virgo_latest
+export LEO_ROOT=/xdata/_prj/leo-dist-$LEO_VERSION/
+export STAR_ROOT=/xdata/_prj/star
+export STAR_BUILD=/xdata/_prj/ets_star
+
+# VIZZ 
+export VIZZ_SERVER_HOME=/xdata/_prj/vizz-dist-$VIZZ_VERSION/virgo_latest
+export VIZZ_BUILD=/xdata/_prj/tbs_vizz
+
+# GENERAL 
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/opt/local/bin:/opt/local/sbin:$SQLPLUS:$PATH
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
+export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=512m"
+
+#export JAVA_OPTS="$JAVA_OPTS -DVIZZ_BUILD=$VIZZ_BUILD"
+#export REBEL_HOME="/Users/e18728/jrebel"
+
+# GIT 
+alias gitpu="git fetch origin -v; git fetch upstream -v; git merge upstream/master"
+
+# CME Group Alias: VIZZ Project
+alias v="cd ${VIZZ_SERVER_HOME}"
+#alias g="cd ${VIZZ_BUILD}/source/vizz"
+alias g="cd ${VIZZ_BUILD}/source"
+alias gp="cd ${VIZZ_BUILD}/source/plugins/vizz-plugin-sample" #TODO: change when I create a plugin parent pom
+alias bcf="mvn clean install -Pvirgo"
+alias bct="mvn clean test"
+alias bc="bcf -Dmaven.test.skip=true -DskipITs"
+alias b="g;bcf -DskipITs -Dmaven.test.skip=true"
+alias bu="g;bcf -DskipITs"
+alias bi="g;bcf -Dmaven.test.skip=true"
+alias bui="g;bcf"
+alias biu="bui"
+alias bp="gp;bcf;cd ../vizz-plugin-alex;bcf;cd ../vizz-plugin-liquidity;bcf"
+alias bpu="gp;bcf -DskipITs"
+alias bpi="gp;bcf -Dmaven.test.skip=true"
+alias bpui="gp;bc"
+alias bpiu="bpui"
+alias STS="open -n /xdata/_app/springsource/sts-3.3.0.RELEASE/STS.app &"
+alias ba="k;b;s"
+
+# Custom maven helper, TODO: add still to the mvn plugin someday.
+alias mvnpom="mvn help:effective-pom"
+
+# Manually source autojump
+source /opt/local/etc/profile.d/autojump.zsh
