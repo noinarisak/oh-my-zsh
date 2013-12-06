@@ -1,0 +1,7 @@
+[user]
+	name = noi narisak
+	email = noi.narisak@gmail.com
+[credential]
+	helper = osxkeychain
+[color]
+	ui = true
