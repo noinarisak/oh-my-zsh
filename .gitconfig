@@ -5,3 +5,8 @@
 	helper = osxkeychain
 [color]
 	ui = true
+[alias]
+	l = log --abbrev-commit --date=relative --pretty=oneline
+	lg = log --abbrev-commit --date=relative --pretty=oneline --graph
+	dn = diff --name-only
+	df = diff --
