@@ -23,10 +23,19 @@ export RESET_FORMATTING=`tput sgr0`
 # Wrapper function for Virgo's startup command.
 s()
 {
-  ${VIZZ_SERVER_HOME}/bin/startup.sh -clean -debug $@ | sed -e "s/^\(\[[^]]*\] INFO.*\)$/${BOLD}${TEXT_BLUE}\1${RESET_FORMATTING}/g" \
-               -e "s/^\(\[[^]]*\] WARN.*\)$/${BOLD}${TEXT_YELLOW}\1${RESET_FORMATTING}/g" \
-               -e "s/^\(\[[^]]*\] ERROR.*\)$/${BOLD}${TEXT_RED}\1${RESET_FORMATTING}/g" \
-               -e "s/^\(\[[^]]*\] DEBUG.*\)$/${BOLD}${TEXT_CYAN}\1${RESET_FORMATTING}/g" 
+  local server_home_path
+
+  # default is VIZZ home path
+  server_home_path=${VIZZ_SERVER_HOME}
+  if [[ "$1" == "-star" ]]; then
+   server_home_path=${SERVER_HOME}
+  fi
+
+  echo "Starting: $server_home_path"
+  $server_home_path/bin/startup.sh -clean -debug $@ | sed -e "s/^\(\[[^]]*\][ ]*INFO.*\)$/${BOLD}${TEXT_BLUE}\1${RESET_FORMATTING}/g" \
+               -e "s/^\(\[[^]]*\][ ]*WARN.*\)$/${BOLD}${TEXT_YELLOW}\1${RESET_FORMATTING}/g" \
+               -e "s/^\(\[[^]]*\][ ]*ERROR.*\)$/${BOLD}${TEXT_RED}\1${RESET_FORMATTING}/g" \
+               -e "s/^\(\[[^]]*\][ ]*DEBUG.*\)$/${BOLD}${TEXT_CYAN}\1${RESET_FORMATTING}/g" 
  
   # Make sure formatting is reset
   echo -ne ${RESET_FORMATTING}
@@ -35,5 +44,6 @@ s()
 k()
 {
   virgoid=`ps ax | grep virgo | grep -v grep | grep -v maven | grep -v vim | awk -F" " '{ print $1 }' | head -n 1`;
+  echo "Killing PID: $virgoid"
   [ ! -z "$virgoid" ] && kill -9 "$virgoid";
 }
