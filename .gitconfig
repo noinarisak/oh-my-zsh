@@ -6,7 +6,7 @@
 [color]
 	ui = true
 [alias]
-	l = log --abbrev-commit --date=relative --pretty=oneline
-	lg = log --abbrev-commit --date=relative --pretty=oneline --graph
-	dn = diff --name-only
-	df = diff --
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %C(magenta)(%cn)%Creset %Cgreen(%cr)    %Creset' --abbrev-commit --date=relative --left-right
+    ref = reflog --pretty=format:'%C(yellow)%h%Creset -%Cgreen%gd %C(white)%gs%Creset' --date=relative
+    df = diff --name-only
+    ls = ls-files
