@@ -13,3 +13,4 @@
     # Assume you did the following first
     # $git remote add upstream git://github.com/user/repo.git
     pu = !"git fetch origin -v; git fetch upstream -v; git merge upstream/master"
+    ra = remote add upstream
