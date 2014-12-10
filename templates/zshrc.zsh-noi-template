@@ -40,14 +40,93 @@ ZSH_THEME="ys"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(sublime autojump)
+plugins=(git gitignore macports mvn osx sublime svn vagrant z)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+export PATH=$PATH:/opt/local/share/java/maven3/bin:/opt/local/lib/mysql55/bin:/opt/local/lib/postgresql92/bin:opt/subversion/bin:/Users/noi/bin:/opt/local/share/java/maven3/bin:/opt/local/lib/mysql55/bin:/opt/local/lib/postgresql92/bin:opt/subversion/bin:/Users/noi/bin:/opt/local/share/java/maven3/bin:/opt/local/lib/mysql55/bin:/opt/local/lib/postgresql92/bin:opt/subversion/bin:/Users/noi/bin:/opt/local/share/java/maven3/bin:/opt/local/lib/mysql55/bin:/opt/local/lib/postgresql92/bin:opt/subversion/bin:/Users/noi/bin:/opt/local/share/java/maven3/bin:/opt/local/lib/mysql55/bin:/opt/local/lib/postgresql92/bin:opt/subversion/bin:/Users/noi/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:::::::::::::::::::::::::
 
-# Export
+# Custom export
+#export JAVA_HOME=/Library/Java/JavaVirtualMachine/...
+export ANDROID_HOME=/xdata/_app/adt-bundle-mac-x86_64-20130729/sdk
+export PACKER_HOME=/xdata/_app/packer/0.5.2_darwin_amd64
+export PATH=$ANDROID_HOME/platform-tools:$PACKER_HOME:$PATH
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+#export PYTHONHOME='/opt/local/bin/python2.7/'
+#export PYTHONPATH='/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/'
 
-# Alias
+# Custom alias
+alias upzsh="source ~/.zshrc"
+alias cfgzsh="vim ~/.zshrc"
+#alias gitpu="git fetch origin -v; git fetch upstream -v; git merge upstream/master"
+alias STS="open -n /xdata/_app/springsource/sts-3.4.0.RELEASE/STS.app &"
+alias ADT="open -n /xdata/_app/adt-bundle-mac-x86_64-20130729/eclipse/Eclipse.app &"
+alias ack=ack-5.12
+alias vup="vagrant up"
+alias vstatus="vagrant status"
+alias vssh="vagrant ssh"
+alias vgs="vagrant global-status"
+alias vgsp="vagrant global-status --prune"
+alias vplugin="vagrant plugin list"
+alias vstop="vagrant halt"
+alias vreload="vagrant reload"
+alias vdelete="vagrant destroy"
+alias vkill="killv"
+alias findsvn="find . -type d -name .svn"
+alias findgit="find . -type d -name .git"
+alias unsvn="find . -type d -name .svn -exec rm -r {} \;"
+alias unsvnf="find . -type d -name .svn -exec rm -rf {} \;"
+alias ungit="find . -type d -name .git -exec rm -r {} \;"
+alias ungitf="find . -type d -name .git -exec rm -rf {} \;"
+alias todo='ack -i todo'
+alias svnlog='svn log -v -r $(get_date_1_ago):HEAD'
+alias svnlog7='svn log -v -r $(get_date_7_ago):HEAD'
+alias svnlog14='svn log -v -r $(get_date_14_ago):HEAD'
+alias _rsync='rsync -avz'
+alias _rsyncn='rsync -avzn'
+alias glsdiff='git show --pretty="format:" --name-only'
+alias cls='clear'
+alias whatis='alias | ack'
+alias whyslow='ping www.google.com'
+alias gitcreategitignore='git gi osx,linux,vim,vagrant,svn,ruby,python,sublimetext > .gitignore'
 
+# Custom zsh functions
+function killv() {
+  ps -ef | grep 'vagrant' | grep -v grep | awk '{print $2}' | xargs kill -9
+}
 
+function killgae() {
+  ps -ef | grep 'dev_appserver' | grep -v grep | awk '{print $2}' | xargs kill -9
+}
+
+# TODO: refactor by handling args
+function get_date_1_ago() {
+  local dt=`date -v-1d '+{%Y-%m-%d}'`
+  echo "$dt"
+}
+# TODO: refactor by handling args
+function get_date_7_ago() {
+  local dt=`date -v-7d '+{%Y-%m-%d}'`
+  echo "$dt"
+}
+# TODO: refactor by handling args
+function get_date_14_ago() {
+  local dt=`date -v-14d '+{%Y-%m-%d}'`
+  echo "$dt"
+}
+
+function httplisten() {
+  for x in 80 8080 8000;
+    do lsof -i :$x;
+  done
+}
+
+# Manually source z
+source $ZSH/plugins/z/z.sh
+
+# The next line updates PATH for the Google Cloud SDK
+source '/xdata/_app/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables bash completion for gcloud
+source '/xdata/_app/google-cloud-sdk/completion.zsh.inc'   
