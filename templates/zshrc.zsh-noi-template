@@ -89,7 +89,9 @@ alias glsdiff='git show --pretty="format:" --name-only'
 alias cls='clear'
 alias whatis='alias | ack'
 alias whyslow='ping www.google.com'
+alias whathttp='httplisten'
 alias gitcreategitignore='git gi osx,linux,vim,vagrant,svn,ruby,python,sublimetext > .gitignore'
+alias mkprj='make_project_seed_folder'
 
 # Custom zsh functions
 function killv() {
@@ -120,6 +122,10 @@ function httplisten() {
   for x in 80 8080 8000;
     do lsof -i :$x;
   done
+}
+
+function make_project_seed_folder() {
+  mkdir -p "$@"/{db,doc,lib,etc,src,tmp}
 }
 
 # Manually source z
